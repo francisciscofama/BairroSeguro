@@ -49,7 +49,7 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(0.975 0.012 125);
+  --background: oklch(69.461% 0.11936 126.198);
   --foreground: oklch(0.24 0.025 157);
   --card: oklch(0.995 0.004 120);
   --card-foreground: oklch(0.24 0.025 157);
@@ -86,9 +86,9 @@
 
 .dark {
   --background: oklch(0.18 0.025 157);
-  --foreground: oklch(0.97 0.015 125);
+  --foreground: oklch(84.492% 0.21864 129.485);
   --card: oklch(0.23 0.027 157);
-  --card-foreground: oklch(0.97 0.015 125);
+  --card-foreground: oklch(78.686% 0.17143 127.353);
   --popover: oklch(0.23 0.027 157);
   --popover-foreground: oklch(0.97 0.015 125);
   --primary: oklch(0.72 0.1 150);
@@ -113,18 +113,18 @@
 }
 
 .resident-app {
-  --background: oklch(0.14 0.012 255);
-  --foreground: oklch(0.94 0.012 250);
-  --card: oklch(0.19 0.012 255);
-  --card-foreground: oklch(0.94 0.012 250);
+  --background: oklch(100% 0.00011 271.152);
+  --foreground: oklch(55.268% 0.17871 255.048);
+  --card: oklch(30.927% 0.08618 272.438);
+  --card-foreground: oklch(35.363% 0.08097 251.24);
   --popover: oklch(0.19 0.012 255);
-  --popover-foreground: oklch(0.94 0.012 250);
+  --popover-foreground: oklch(50.168% 0.15172 254.129);
   --primary: oklch(0.78 0.17 68);
   --primary-foreground: oklch(0.16 0.025 67);
   --secondary: oklch(0.25 0.018 250);
   --secondary-foreground: oklch(0.92 0.012 250);
   --muted: oklch(0.22 0.012 255);
-  --muted-foreground: oklch(0.7 0.018 250);
+  --muted-foreground: oklch(16.926% 0.01412 243.933);
   --accent: oklch(0.26 0.018 250);
   --accent-foreground: oklch(0.95 0.012 250);
   --destructive: oklch(0.7 0.15 31);
@@ -172,8 +172,14 @@ body:has(.resident-app) {
 
 @media (prefers-reduced-motion: no-preference) {
   @keyframes arrive {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .screen-arrive {
