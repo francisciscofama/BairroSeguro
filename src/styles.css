@@ -1,0 +1,182 @@
+/* Tailwind v4 entry and Bairro Seguro design system. */
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 3px);
+  --radius-md: calc(var(--radius) - 1px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: "Manrope", sans-serif;
+  --font-heading: "Sora", sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface-green: var(--surface-green);
+  --color-green-ink: var(--green-ink);
+  --color-emergency: var(--emergency);
+  --color-emergency-soft: var(--emergency-soft);
+  --color-status: var(--status);
+  --color-status-soft: var(--status-soft);
+  --color-entry-background: var(--entry-background);
+  --color-entry-foreground: var(--entry-foreground);
+  --color-entry-surface: var(--entry-surface);
+  --color-entry-border: var(--entry-border);
+  --color-entry-muted: var(--entry-muted);
+  --color-entry-accent: var(--entry-accent);
+  --color-entry-accent-foreground: var(--entry-accent-foreground);
+  --color-entry-field: var(--entry-field);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.975 0.012 125);
+  --foreground: oklch(0.24 0.025 157);
+  --card: oklch(0.995 0.004 120);
+  --card-foreground: oklch(0.24 0.025 157);
+  --popover: oklch(0.995 0.004 120);
+  --popover-foreground: oklch(0.24 0.025 157);
+  --primary: oklch(0.48 0.095 153);
+  --primary-foreground: oklch(0.99 0.01 120);
+  --secondary: oklch(0.92 0.035 132);
+  --secondary-foreground: oklch(0.34 0.06 153);
+  --muted: oklch(0.95 0.018 128);
+  --muted-foreground: oklch(0.51 0.025 155);
+  --accent: oklch(0.92 0.035 132);
+  --accent-foreground: oklch(0.34 0.06 153);
+  --destructive: oklch(0.55 0.17 31);
+  --destructive-foreground: oklch(0.99 0.01 120);
+  --border: oklch(0.89 0.025 137);
+  --input: oklch(0.89 0.025 137);
+  --ring: oklch(0.58 0.095 153);
+  --surface-green: oklch(0.93 0.04 137);
+  --green-ink: oklch(0.33 0.07 153);
+  --emergency: oklch(0.57 0.17 31);
+  --emergency-soft: oklch(0.95 0.04 35);
+  --status: oklch(0.53 0.1 154);
+  --status-soft: oklch(0.94 0.04 145);
+  --entry-background: oklch(0.14 0.012 255);
+  --entry-foreground: oklch(0.94 0.012 250);
+  --entry-surface: oklch(0.19 0.012 255);
+  --entry-border: oklch(0.27 0.018 255);
+  --entry-muted: oklch(0.69 0.018 250);
+  --entry-accent: oklch(0.78 0.17 68);
+  --entry-accent-foreground: oklch(0.16 0.025 67);
+  --entry-field: oklch(0.16 0.012 255);
+}
+
+.dark {
+  --background: oklch(0.18 0.025 157);
+  --foreground: oklch(0.97 0.015 125);
+  --card: oklch(0.23 0.027 157);
+  --card-foreground: oklch(0.97 0.015 125);
+  --popover: oklch(0.23 0.027 157);
+  --popover-foreground: oklch(0.97 0.015 125);
+  --primary: oklch(0.72 0.1 150);
+  --primary-foreground: oklch(0.2 0.03 155);
+  --secondary: oklch(0.29 0.035 152);
+  --secondary-foreground: oklch(0.95 0.02 130);
+  --muted: oklch(0.28 0.027 157);
+  --muted-foreground: oklch(0.74 0.03 145);
+  --accent: oklch(0.3 0.04 150);
+  --accent-foreground: oklch(0.96 0.02 130);
+  --destructive: oklch(0.65 0.16 31);
+  --destructive-foreground: oklch(0.16 0.02 150);
+  --border: oklch(0.35 0.03 150);
+  --input: oklch(0.35 0.03 150);
+  --ring: oklch(0.68 0.08 150);
+  --surface-green: oklch(0.28 0.035 151);
+  --green-ink: oklch(0.82 0.08 148);
+  --emergency: oklch(0.7 0.15 31);
+  --emergency-soft: oklch(0.28 0.06 32);
+  --status: oklch(0.72 0.1 150);
+  --status-soft: oklch(0.28 0.04 148);
+}
+
+.resident-app {
+  --background: oklch(0.14 0.012 255);
+  --foreground: oklch(0.94 0.012 250);
+  --card: oklch(0.19 0.012 255);
+  --card-foreground: oklch(0.94 0.012 250);
+  --popover: oklch(0.19 0.012 255);
+  --popover-foreground: oklch(0.94 0.012 250);
+  --primary: oklch(0.78 0.17 68);
+  --primary-foreground: oklch(0.16 0.025 67);
+  --secondary: oklch(0.25 0.018 250);
+  --secondary-foreground: oklch(0.92 0.012 250);
+  --muted: oklch(0.22 0.012 255);
+  --muted-foreground: oklch(0.7 0.018 250);
+  --accent: oklch(0.26 0.018 250);
+  --accent-foreground: oklch(0.95 0.012 250);
+  --destructive: oklch(0.7 0.15 31);
+  --destructive-foreground: oklch(0.15 0.02 30);
+  --border: oklch(0.29 0.018 255);
+  --input: oklch(0.29 0.018 255);
+  --ring: oklch(0.78 0.17 68);
+  --surface-green: oklch(0.22 0.016 160);
+  --green-ink: oklch(0.86 0.07 148);
+  --emergency: oklch(0.76 0.14 33);
+  --emergency-soft: oklch(0.28 0.055 32);
+  --status: oklch(0.78 0.12 147);
+  --status-soft: oklch(0.25 0.04 147);
+}
+
+body:has(.resident-app) {
+  background: var(--entry-background);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    font-family: var(--font-sans);
+    background: var(--color-background);
+  }
+
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes arrive {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .screen-arrive {
+    animation: arrive 220ms ease-out both;
+  }
+}
