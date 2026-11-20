@@ -1,0 +1,100 @@
+
+/* Área do botão SOS */
+.sos-container {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.35));
+}
+
+/* Borda luminosa giratória */
+.sos-rotating-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #7f0000,
+    #ff0000,
+    #ffffff,
+    #ff3030,
+    #990000,
+    #ff0000
+  );
+  animation: sos-rotate 2s linear infinite;
+}
+
+/* Botão central */
+.sos-button {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 7px solid #ffb3b3;
+  background: radial-gradient(
+    circle at 35% 25%,
+    #ff5555 0%,
+    #ed0000 45%,
+    #9f0000 100%
+  );
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+  cursor: pointer;
+  box-shadow:
+    inset 0 3px 12px rgba(255,255,255,0.4),
+    inset 0 -8px 15px rgba(70,0,0,0.5),
+    0 0 20px rgba(255,0,0,0.45);
+  animation: sos-pulse 1.8s ease-in-out infinite;
+  transition: transform 0.15s ease;
+}
+
+.sos-button:hover {
+  transform: scale(1.04);
+}
+
+.sos-button:active {
+  transform: scale(0.92);
+}
+
+.sos-button:focus-visible {
+  outline: 3px solid #ff3333;
+  outline-offset: 5px;
+}
+
+/* Rotação da sirene */
+@keyframes sos-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulsação luminosa */
+@keyframes sos-pulse {
+  0%, 100% {
+    box-shadow:
+      inset 0 3px 12px rgba(255,255,255,0.4),
+      inset 0 -8px 15px rgba(70,0,0,0.5),
+      0 0 12px rgba(255,0,0,0.35);
+  }
+
+  50% {
+    box-shadow:
+      inset 0 3px 12px rgba(255,255,255,0.5),
+      inset 0 -8px 15px rgba(70,0,0,0.5),
+      0 0 30px rgba(255,0,0,0.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sos-rotating-border,
+  .sos-button {
+    animation: none;
+  }
+}
