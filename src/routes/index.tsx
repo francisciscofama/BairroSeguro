@@ -70,31 +70,67 @@ function BairroSeguro() {
   const [requestNumber, setRequestNumber] = useState<string | null>(null);
   const [trustedContacts, setTrustedContacts] = useState<TrustedContact[]>([]);
   const [isSendingAssault, setIsSendingAssault] = useState(false);
+  const [assaultStatus, setAssaultStatus] = useState<{
+    type: "success" | "error" | "loading" | null;
+    message: string;
+  }>({
+    type: null,
+    message: "",
+  });
+
+  // async function startRequest(nextKind: RequestKind) {
+  //   if (nextKind === "Assaltos") {
+  //     try {
+  //       const resultado = await handleAssault({
+  //         usuario_id: 1,
+  //       });
+
+  //       alert(resultado?.message || "Alerta processado com sucesso!");
+  //     } catch (error) {
+  //       alert(error instanceof Error ? error.message : "Não foi possível enviar o alerta.");
+  //     }
+
+  //     return;
+  //   }
+
+  //   setKind(nextKind);
+  //   setDescription("");
+  //   setShareLocation(false);
+  //   setView("form");
+  // }
 
   async function startRequest(nextKind: RequestKind) {
-  if (nextKind === "Assaltos") {
-    try {
-      const resultado = await handleAssault({
-        usuario_id: 1,
+    if (nextKind === "Assaltos") {
+      setAssaultStatus({
+        type: "loading",
+        message: "A obter localização e a enviar alerta...",
       });
 
-      alert(resultado?.message || "Alerta processado com sucesso!");
-    } catch (error) {
-      alert(
-        error instanceof Error
-          ? error.message
-          : "Não foi possível enviar o alerta."
-      );
+      try {
+        const resultado = await handleAssault({
+          usuario_id: 1,
+        });
+
+        setAssaultStatus({
+          type: "success",
+          message: resultado?.message || "Alerta de socorro enviado com sucesso!",
+        });
+      } catch (error) {
+        setAssaultStatus({
+          type: "error",
+          message: error instanceof Error ? error.message : "Não foi possível enviar o alerta.",
+        });
+      }
+
+      return;
     }
 
-    return;
+    setAssaultStatus({ type: null, message: "" });
+    setKind(nextKind);
+    setDescription("");
+    setShareLocation(false);
+    setView("form");
   }
-
-  setKind(nextKind);
-  setDescription("");
-  setShareLocation(false);
-  setView("form");
-}
 
   function submitRequest(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -132,7 +168,7 @@ function BairroSeguro() {
             />
             <div>
               <p className="font-heading text-sm font-bold leading-tight">Bairro Seguro</p>
-              <p className="mt-1 text-[9px] font-semibold uppercase text-muted-foreground">
+              <p className="mt-1 text-[9px] font-semibold uppercase text-muted">
                 Segurança comunitária
               </p>
             </div>
@@ -209,6 +245,111 @@ function BairroSeguro() {
         onRequests={() => setView("requests")}
         onProfile={() => setView("profile")}
       />
+      {assaultStatus.type && (
+        <div className="fixed inset-x-0 bottom-5 z-[9999] flex justify-center px-4">
+          <div
+            className={`w-full max-w-md rounded-2xl border p-4 shadow-2xl animate-in slide-in-from-bottom-5 duration-300 ${
+              assaultStatus.type === "success"
+                ? "border-green-200 bg-white"
+                : assaultStatus.type === "error"
+                  ? "border-red-200 bg-white"
+                  : "border-blue-200 bg-white"
+            }`}
+          >
+            <div className="flex items-start gap-3">
+              <div
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${
+                  assaultStatus.type === "success"
+                    ? "bg-green-100 text-green-600"
+                    : assaultStatus.type === "error"
+                      ? "bg-red-100 text-red-600"
+                      : "bg-blue-100 text-blue-600"
+                }`}
+              >
+                {assaultStatus.type === "loading" ? (
+                  <div className="h-6 w-6 animate-spin rounded-full border-[3px] border-blue-600 border-t-transparent" />
+                ) : assaultStatus.type === "success" ? (
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 12l4 4L19 6" />
+                  </svg>
+                ) : (
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 9v4m0 4h.01M10.3 3.86L1.82 18a2 2 0 001.7 3h16.96a2 2 0 001.7-3L13.7 3.86a2 2 0 00-3.4 0z"
+                    />
+                  </svg>
+                )}
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <h3
+                  className={`font-bold ${
+                    assaultStatus.type === "success"
+                      ? "text-green-700"
+                      : assaultStatus.type === "error"
+                        ? "text-red-700"
+                        : "text-blue-700"
+                  }`}
+                >
+                  {assaultStatus.type === "loading"
+                    ? "A processar pedido"
+                    : assaultStatus.type === "success"
+                      ? "Pedido processado"
+                      : "Falha no envio"}
+                </h3>
+
+                <p className="mt-1 text-sm leading-relaxed text-gray-600">
+                  {assaultStatus.message}
+                </p>
+
+                {assaultStatus.type === "loading" && (
+                  <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-blue-100">
+                    <div className="h-full w-1/2 animate-pulse rounded-full bg-blue-600" />
+                  </div>
+                )}
+              </div>
+
+              {assaultStatus.type !== "loading" && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    setAssaultStatus({
+                      type: null,
+                      message: "",
+                    })
+                  }
+                  className="rounded-full p-1 text-gray-400 transition hover:bg-gray-100 hover:text-gray-700"
+                  aria-label="Fechar notificação"
+                >
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
+                  </svg>
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

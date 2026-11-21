@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LocationMapRouteImport } from './routes/LocationMap'
 import { Route as LoginRouteImport } from './routes/login'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocationMapRoute = LocationMapRouteImport.update({
+  id: '/LocationMap',
+  path: '/LocationMap',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -25,27 +31,31 @@ const LoginRoute = LoginRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/LocationMap': typeof LocationMapRoute
   '/login': typeof LoginRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/LocationMap': typeof LocationMapRoute
   '/login': typeof LoginRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/LocationMap': typeof LocationMapRoute
   '/login': typeof LoginRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login'
+  fullPaths: '/' | '/LocationMap' | '/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login'
-  id: '__root__' | '/' | '/login'
+  to: '/' | '/LocationMap' | '/login'
+  id: '__root__' | '/' | '/LocationMap' | '/login'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LocationMapRoute: typeof LocationMapRoute
   LoginRoute: typeof LoginRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/LocationMap': {
+      id: '/LocationMap'
+      path: '/LocationMap'
+      fullPath: '/LocationMap'
+      preLoaderRoute: typeof LocationMapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LocationMapRoute: LocationMapRoute,
   LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
