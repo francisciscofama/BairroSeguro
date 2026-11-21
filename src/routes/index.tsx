@@ -28,13 +28,14 @@ import Login from "./login";
 import LocationMap from "@/components/LocationMap.tsx";
 
 type View = "entry" | "home" | "form" | "sent" | "tracking" | "requests" | "profile";
-type RequestKind = "Segurança" | "Saúde" | "Ajuda comunitária" | "Ocorrência no bairro";
+type RequestKind = "Segurança" | "Saúde" | "Incêndio" | "Assaltos" | "Ocorrência no bairro";
 type TrustedContact = { id: string; name: string; phone: string };
 
 const requestOptions: { title: RequestKind; detail: string; icon: typeof Shield }[] = [
   { title: "Segurança", detail: "Perigo ou situação urgente", icon: ShieldAlert },
   { title: "Saúde", detail: "Precisa de assistência médica", icon: HeartPulse },
-  { title: "Ajuda comunitária", detail: "Apoio a um morador", icon: UsersRound },
+  { title: "Incêndio", detail: "Apoio a um morador", icon: UsersRound },
+  { title: "Assaltos", detail: "Roubo ou agressão", icon: Shield },
   { title: "Ocorrência no bairro", detail: "Iluminação, buracos ou inundação", icon: Wrench },
 ];
 
@@ -203,7 +204,7 @@ function Home({
   return (
     <section className="screen-arrive" aria-label="Início">
       <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase text-muted-foreground">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase text-muted">
           <MapPin className="size-4 text-primary" aria-hidden="true" />
           <span>Angola · Segura</span>
         </div>
