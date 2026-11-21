@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { handleAssault } from "@/services/assaultService";
+
 import {
   ArrowLeft,
   ArrowRight,
@@ -67,13 +69,32 @@ function BairroSeguro() {
   const [shareLocation, setShareLocation] = useState(false);
   const [requestNumber, setRequestNumber] = useState<string | null>(null);
   const [trustedContacts, setTrustedContacts] = useState<TrustedContact[]>([]);
+  const [isSendingAssault, setIsSendingAssault] = useState(false);
 
-  function startRequest(nextKind: RequestKind) {
-    setKind(nextKind);
-    setDescription("");
-    setShareLocation(false);
-    setView("form");
+  async function startRequest(nextKind: RequestKind) {
+  if (nextKind === "Assaltos") {
+    try {
+      const resultado = await handleAssault({
+        usuario_id: 1,
+      });
+
+      alert(resultado?.message || "Alerta processado com sucesso!");
+    } catch (error) {
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Não foi possível enviar o alerta."
+      );
+    }
+
+    return;
   }
+
+  setKind(nextKind);
+  setDescription("");
+  setShareLocation(false);
+  setView("form");
+}
 
   function submitRequest(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
